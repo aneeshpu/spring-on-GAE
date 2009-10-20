@@ -13,6 +13,8 @@ import com.aneesh.gae.domain.QuickThought;
 @SuppressWarnings("serial")
 public class ThoughtCreatorServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		System.out.println(req.getServletPath());
+		System.out.println(req.getPathInfo());
 		QuickThought quickThought = new QuickThought(req.getParameter("qThought"));
 
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();

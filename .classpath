@@ -7,5 +7,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/org.springframework.core-3.0.0.RC1.jar"/>
 	<classpathentry kind="lib" path="lib/org.springframework.web-3.0.0.RC1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-beans-2.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-2.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-context-support-2.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-core-2.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-web-2.5.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-webmvc-2.5.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

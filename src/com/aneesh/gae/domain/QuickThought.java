@@ -19,7 +19,7 @@ public class QuickThought {
 	@SuppressWarnings("unused")
 	private QuickThought(){
 	}
-
+	
 	public QuickThought(String quickThought) {
 		this.quickThought = quickThought;
 		
