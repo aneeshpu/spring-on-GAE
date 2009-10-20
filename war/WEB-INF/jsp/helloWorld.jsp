@@ -1,4 +1,4 @@
-<%@page import="com.foo.MyModel"%>
+<%@page import="com.aneeshpu.gae.web.mvc.MyModel"%>
 <html>
 <body>
 	<%
