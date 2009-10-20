@@ -13,7 +13,7 @@ public class ThoughtController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("helloWorld");
 		MyModel myModel = new MyModel();
-		myModel.setName("Spring on gae");
+		myModel.setName("QuickThoughts powered by spring on gae");
 		myModel.setVersion("2.5");
 		
 		modelAndView.addObject("message", myModel);
