@@ -1,11 +1,5 @@
-<%@page import="com.aneeshpu.gae.web.mvc.MyModel"%>
-<html>
+<%@page import="com.aneesh.gae.domain.QuickThought"%><html>
 <body>
-	<%
-		MyModel model = (MyModel)request.getAttribute("message");
-	%>
-	framework:<%=model.getName()%>
-	<br/>
-	version:<%=model.getVersion()%>
+	You just thought:<%=(QuickThought)request.getAttribute("thought")%>
 </body>
 </html>
