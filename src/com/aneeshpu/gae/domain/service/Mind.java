@@ -1,5 +1,10 @@
 package com.aneeshpu.gae.domain.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 
 import com.aneesh.gae.domain.PMF;
@@ -20,5 +25,29 @@ public class Mind {
 		}
 
 		return quickThought;
+	}
+
+	public List<QuickThought> allMyThoughts() {
+
+		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+
+		ArrayList<QuickThought> allMyThoughts = new ArrayList<QuickThought>();
+
+		try {
+			Extent<QuickThought> extent = persistenceManager.getExtent(QuickThought.class);
+			for (QuickThought quickThought : extent) {
+				allMyThoughts.add(quickThought);
+			}
+
+			return allMyThoughts;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			persistenceManager.close();
+		}
+		
+		return Collections.emptyList();
+
 	}
 }
