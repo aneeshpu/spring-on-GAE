@@ -19,7 +19,7 @@ public class ThoughtController {
 	public ModelAndView helloWorld(@PathVariable("thought") String thought){
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("helloWorld");
+		modelAndView.setViewName("newThought");
 		modelAndView.addObject("thought", new Mind().think(thought));
 		return modelAndView;
 	}
