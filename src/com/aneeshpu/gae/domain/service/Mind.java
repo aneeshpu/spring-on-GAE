@@ -6,16 +6,23 @@ import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 
-import com.aneesh.gae.domain.PMF;
 import com.aneesh.gae.domain.QuickThought;
 
 public class Mind {
 
+	private PersistenceManagerFactory persistenceManagerFactory;
+
+	public Mind(PersistenceManagerFactory persistenceManagerFactory) {
+		this.persistenceManagerFactory = persistenceManagerFactory;
+
+	}
+
 	public QuickThought think(String thought) {
 		QuickThought quickThought = new QuickThought(thought);
 
-		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+		PersistenceManager persistenceManager = persistenceManager();
 		try {
 			persistenceManager.makePersistent(quickThought);
 		} catch (Exception e) {
@@ -27,12 +34,15 @@ public class Mind {
 		return quickThought;
 	}
 
-	public List<QuickThought> allMyThoughts() {
+	private PersistenceManager persistenceManager() {
+		return persistenceManagerFactory.getPersistenceManager();
+	}
 
-		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+	public List<QuickThought> allMyThoughts() {
 
 		ArrayList<QuickThought> allMyThoughts = new ArrayList<QuickThought>();
 
+		PersistenceManager persistenceManager = persistenceManager();
 		try {
 			Extent<QuickThought> extent = persistenceManager.getExtent(QuickThought.class);
 			for (QuickThought quickThought : extent) {
@@ -46,8 +56,9 @@ public class Mind {
 		} finally {
 			persistenceManager.close();
 		}
-		
+
 		return Collections.emptyList();
 
 	}
+
 }
