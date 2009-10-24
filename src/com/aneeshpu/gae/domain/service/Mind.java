@@ -16,13 +16,13 @@ import com.aneesh.gae.domain.QuickThought;
 @Component
 public class Mind {
 
-	@Autowired
 	private PersistenceManagerFactory persistenceManagerFactory;
+	
+	@Autowired
+	public Mind(PersistenceManagerFactory persistenceManagerFactory) {
+		this.persistenceManagerFactory = persistenceManagerFactory;
 
-//	public Mind(PersistenceManagerFactory persistenceManagerFactory) {
-//		this.persistenceManagerFactory = persistenceManagerFactory;
-//
-//	}
+	}
 
 	public QuickThought think(String thought) {
 		QuickThought quickThought = new QuickThought(thought);
@@ -65,5 +65,4 @@ public class Mind {
 		return Collections.emptyList();
 
 	}
-
 }
