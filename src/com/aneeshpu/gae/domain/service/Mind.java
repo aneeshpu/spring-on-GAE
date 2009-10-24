@@ -3,12 +3,12 @@ package com.aneeshpu.gae.domain.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.aneesh.gae.domain.QuickThought;
 import com.aneeshpu.gae.domain.repository.ThoughtRepository;
 
-@Component
+@Service
 public class Mind {
 
 	private ThoughtRepository thoughtRepository;
