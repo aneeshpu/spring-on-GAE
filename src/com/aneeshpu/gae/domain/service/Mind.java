@@ -8,16 +8,21 @@ import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.aneesh.gae.domain.QuickThought;
 
+@Component
 public class Mind {
 
+	@Autowired
 	private PersistenceManagerFactory persistenceManagerFactory;
 
-	public Mind(PersistenceManagerFactory persistenceManagerFactory) {
-		this.persistenceManagerFactory = persistenceManagerFactory;
-
-	}
+//	public Mind(PersistenceManagerFactory persistenceManagerFactory) {
+//		this.persistenceManagerFactory = persistenceManagerFactory;
+//
+//	}
 
 	public QuickThought think(String thought) {
 		QuickThought quickThought = new QuickThought(thought);

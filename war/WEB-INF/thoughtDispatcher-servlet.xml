@@ -10,8 +10,4 @@
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
 	
 	<bean id="persistenceManagerFactory" class="com.aneesh.gae.domain.PMF" factory-method="get" />
-	
-	<bean id="mind" class="com.aneeshpu.gae.domain.service.Mind">
-		<constructor-arg ref="persistenceManagerFactory" />
-	</bean> 
 </beans>
