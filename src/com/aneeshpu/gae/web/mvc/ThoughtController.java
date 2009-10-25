@@ -18,12 +18,11 @@ public class ThoughtController {
 	@Autowired
 	private Mind mind;
 
-	@RequestMapping(value = { "/think/{thought}" }, method = RequestMethod.GET)
-	public ModelAndView helloWorld(@PathVariable("thought") String thought) {
-
+	@RequestMapping(value = { "/think/{thought}/tag/{tags}" }, method = RequestMethod.GET)
+	public ModelAndView helloWorld(@PathVariable("thought") String thought, @PathVariable("tags") String tags) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("newThought");
-		modelAndView.addObject("thought", mind.think(thought));
+		modelAndView.addObject("thought", mind.think(thought, tags));
 		return modelAndView;
 	}
 

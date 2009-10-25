@@ -21,6 +21,17 @@ ol{
 	list-style-type: none;
 }
 
-li.thought{
-	border-top: 1px solid #EEEEEE;
+span{
+	border-bottom: 1px solid #EEEEEE;
+	
+}
+
+span.thought{
+	border-right: 1px solid #EEEEEE;
+	
+}
+
+span.time {
+	color: #999999;
+	font-size: 12px;
 }

@@ -18,8 +18,8 @@ public class Mind {
 		this.thoughtRepository = thoughtRepository;
 	}
 
-	public QuickThought think(final String thought) {
-		final QuickThought quickThought = new QuickThought(thought);
+	public QuickThought think(final String thought, String tags) {
+		final QuickThought quickThought = new QuickThought(thought,tags);
 		thoughtRepository().persist(quickThought);
 		return quickThought;
 	}

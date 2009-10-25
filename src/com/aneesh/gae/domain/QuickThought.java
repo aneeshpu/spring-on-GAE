@@ -19,13 +19,16 @@ public class QuickThought {
 	private String quickThought;
 
 	private Date when;
+
+	private String[] tags;
 	
 	@SuppressWarnings("unused")
 	private QuickThought(){
 	}
 	
-	public QuickThought(String quickThought) {
+	public QuickThought(String quickThought, String... tags) {
 		this.quickThought = quickThought;
+		this.tags = tags;
 		when = new Date();
 	}
 
@@ -37,4 +40,45 @@ public class QuickThought {
 	public Date when(){
 		return when;
 	}
+
+	public boolean isTaggedWith(String tag) {
+		for (String myTag : tags) {
+			if(myTag.equals(tag)) 
+				return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((quickThought == null) ? 0 : quickThought.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		QuickThought other = (QuickThought) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (quickThought == null) {
+			if (other.quickThought != null)
+				return false;
+		} else if (!quickThought.equals(other.quickThought))
+			return false;
+		return true;
+	}
+	
 }

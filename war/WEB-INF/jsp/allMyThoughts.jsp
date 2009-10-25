@@ -12,11 +12,9 @@
 		for(QuickThought quickThought: thoughts){
 	%>
 		
-			<li class="thought">
-				<span>
-					<%=quickThought.when()%>
-					<%=quickThought%>
-				</span>
+			<li >
+				<span class="thought"><%=quickThought%></span>
+				<span class="time"><%=quickThought.when() == null ? "" : quickThought.when()%></span>
 			</li>
 		
 	<%}%>
