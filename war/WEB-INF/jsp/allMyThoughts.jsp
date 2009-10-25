@@ -5,13 +5,17 @@
 	<link rel="stylesheet" type="text/css" href="/css/quickThought.css" />
 </head>
 <body>
-	So far you have thought:
+	<div id="mind">
+		<ol>
 	<%
 		List<QuickThought> thoughts = (List<QuickThought>)request.getAttribute("allMyThoughts");
 		for(QuickThought quickThought: thoughts){
 	%>
-	<li><%=quickThought%>
-	<br/>
+		
+			<li class="thought"><span><%=quickThought%></span></li>
+		
 	<%}%>
+		</ol>
+	</div>
 </body>
 </html>

@@ -1,3 +1,26 @@
 body { 
-	background: #99FFFF;
+	background: #3399FF;
+	font-family: 'Lucida Grande',sans-serif;
+	font-size-adjust: none;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+}
+
+div#mind{
+	margin:1em auto;
+	width: 500px;
+	background:white;
+	font: sans-serif;
+	padding: 5px 10px 15px;
+	border: 1px;
+	
+}
+
+ol{
+	list-style-type: none;
+}
+
+li.thought{
+	border-top: 1px solid #EEEEEE;
 }
