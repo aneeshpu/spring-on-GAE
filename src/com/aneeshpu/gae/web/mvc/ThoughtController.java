@@ -19,7 +19,7 @@ public class ThoughtController {
 	private Mind mind;
 
 	@RequestMapping(value = { "/think/{thought}/tag/{tags}" }, method = RequestMethod.GET)
-	public ModelAndView helloWorld(@PathVariable("thought") String thought, @PathVariable("tags") String tags) {
+	public ModelAndView think(@PathVariable("thought") String thought, @PathVariable("tags") String tags) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("newThought");
 		modelAndView.addObject("thought", mind.think(thought, tags));
