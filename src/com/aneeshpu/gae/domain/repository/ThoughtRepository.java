@@ -18,14 +18,14 @@ public class ThoughtRepository {
 	private final PersistenceManagerFactory persistenceManagerFactory;
 
 	@Autowired
-	public ThoughtRepository(PersistenceManagerFactory persistenceManagerFactory) {
+	public ThoughtRepository(final PersistenceManagerFactory persistenceManagerFactory) {
 		this.persistenceManagerFactory = persistenceManagerFactory;
 
 	}
 
-	public void persist(QuickThought quickThought) {
+	public void persist(final QuickThought quickThought) {
 
-		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
+		final PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
 		try {
 			persistenceManager.makePersistent(quickThought);
 		} catch (Exception e) {
@@ -36,8 +36,8 @@ public class ThoughtRepository {
 	}
 
 	public List<QuickThought> allMyThoughts() {
-		List<QuickThought> allMyThoughts = new ArrayList<QuickThought>();
-		Extent<QuickThought> extent = persistenceManagerFactory.getPersistenceManager().getExtent(QuickThought.class);
+		final List<QuickThought> allMyThoughts = new ArrayList<QuickThought>();
+		final Extent<QuickThought> extent = persistenceManagerFactory.getPersistenceManager().getExtent(QuickThought.class);
 		for (QuickThought quickThought : extent) {
 			allMyThoughts.add(quickThought);
 		}

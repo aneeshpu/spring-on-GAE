@@ -9,11 +9,11 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class QuickThought {
 
+	@SuppressWarnings("unused")
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
 	private Long id;
 	
-	@Persistent
 	private String quickThought;
 	
 	@SuppressWarnings("unused")
@@ -22,7 +22,6 @@ public class QuickThought {
 	
 	public QuickThought(String quickThought) {
 		this.quickThought = quickThought;
-		
 	}
 
 	@Override

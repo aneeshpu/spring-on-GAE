@@ -11,15 +11,15 @@ import com.aneeshpu.gae.domain.repository.ThoughtRepository;
 @Service
 public class Mind {
 
-	private ThoughtRepository thoughtRepository;
+	private final ThoughtRepository thoughtRepository;
 
 	@Autowired
-	public Mind(ThoughtRepository thoughtRepository) {
+	public Mind(final ThoughtRepository thoughtRepository) {
 		this.thoughtRepository = thoughtRepository;
 	}
 
-	public QuickThought think(String thought) {
-		QuickThought quickThought = new QuickThought(thought);
+	public QuickThought think(final String thought) {
+		final QuickThought quickThought = new QuickThought(thought);
 		thoughtRepository().persist(quickThought);
 		return quickThought;
 	}
