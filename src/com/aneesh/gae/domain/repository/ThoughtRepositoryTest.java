@@ -4,7 +4,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.classextension.EasyMock.createMock;
 import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.verify;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 import java.util.List;
@@ -12,8 +12,6 @@ import java.util.List;
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-
-import junit.framework.Assert;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
