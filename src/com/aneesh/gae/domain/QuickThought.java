@@ -1,6 +1,8 @@
 package com.aneesh.gae.domain;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -21,6 +23,9 @@ public class QuickThought {
 	private Date when;
 
 	private String[] tags;
+
+	@Persistent
+	private List<Tag> tagObjects;
 	
 	@SuppressWarnings("unused")
 	private QuickThought(){
@@ -29,6 +34,12 @@ public class QuickThought {
 	public QuickThought(String quickThought, String... tags) {
 		this.quickThought = quickThought;
 		this.tags = tags;
+		when = new Date();
+	}
+	
+	public QuickThought(String quickThought, Tag... tags){
+		this.quickThought = quickThought;
+		this.tagObjects = Arrays.asList(tags);
 		when = new Date();
 	}
 
@@ -48,6 +59,10 @@ public class QuickThought {
 		}
 		
 		return false;
+	}
+	
+	public List<Tag> tags(){
+		return tagObjects;
 	}
 
 	@Override

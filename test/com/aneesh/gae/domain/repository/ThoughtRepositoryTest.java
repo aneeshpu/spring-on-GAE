@@ -4,14 +4,16 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.classextension.EasyMock.createMock;
 import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -34,7 +36,7 @@ public class ThoughtRepositoryTest {
 
 	@Test
 	public void ShouldCallPersistenceManagerToPersistAThought() throws Exception {
-		QuickThought randomThought = new QuickThought("Just a random thought");
+		QuickThought randomThought = new QuickThought("Just a random thought","random");
 		expect(persistenceManagerMock.makePersistent(randomThought)).andReturn(randomThought);
 		persistenceManagerMock.close();
 		
@@ -50,30 +52,26 @@ public class ThoughtRepositoryTest {
 	
 	@Test
 	public void ShouldFetchAllThoughtsFromStorage() throws Exception {
-		QuickThought quickThought = new QuickThought("just a random thought");
+		QuickThought quickThought = new QuickThought("just a random thought","thought");
 		
-		Iterator<QuickThought> iteratorMock = EasyMock.createMock(Iterator.class);
-		expect(iteratorMock.hasNext()).andReturn(true);
-		expect(iteratorMock.hasNext()).andReturn(false);
-		expect(iteratorMock.next()).andReturn(quickThought);
+		Query queryMock = createMock(Query.class);
+		ArrayList<QuickThought> allPersistedThoughts = new ArrayList<QuickThought>();
+		allPersistedThoughts.add(quickThought);
+		expect(queryMock.execute()).andReturn(allPersistedThoughts);
 		
-		Extent<QuickThought> extentMock = createMock(Extent.class);
-		expect(extentMock.iterator()).andReturn(iteratorMock);
-		expect(persistenceManagerMock.getExtent(QuickThought.class)).andReturn(extentMock);
+		expect(persistenceManagerMock.newQuery(QuickThought.class)).andReturn(queryMock);
 		
 		replay(persistenceManagerFactoryMock);
 		replay(persistenceManagerMock);
-		replay(iteratorMock);
-		replay(extentMock);
+		replay(queryMock);
 		
 		ThoughtRepository thoughtRepository = new ThoughtRepository(persistenceManagerFactoryMock);
-		List<QuickThought> allMyThoughts = thoughtRepository.allMyThoughts();
+		Collection<QuickThought> allMyThoughts = thoughtRepository.allMyThoughts();
 		
-		assertEquals(quickThought, allMyThoughts.get(0));
+		assertTrue(allMyThoughts.contains(quickThought));
 		
 		verify(persistenceManagerFactoryMock);
 		verify(persistenceManagerMock);
-		verify(iteratorMock);
-		verify(extentMock);
+		verify(queryMock);
 	}
 }

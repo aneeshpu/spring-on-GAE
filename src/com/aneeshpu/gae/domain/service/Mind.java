@@ -1,11 +1,12 @@
 package com.aneeshpu.gae.domain.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aneesh.gae.domain.QuickThought;
+import com.aneesh.gae.domain.Tag;
 import com.aneeshpu.gae.domain.repository.ThoughtRepository;
 
 @Service
@@ -19,7 +20,10 @@ public class Mind {
 	}
 
 	public QuickThought think(final String thought, String tags) {
-		final QuickThought quickThought = new QuickThought(thought,tags);
+		Tag tag = new Tag(tags);
+		Tag existingTag = thoughtRepository.find(tag);
+		tag = existingTag == null ? tag : existingTag;
+		final QuickThought quickThought = new QuickThought(thought,tag);
 		thoughtRepository().persist(quickThought);
 		return quickThought;
 	}
@@ -28,7 +32,12 @@ public class Mind {
 		return thoughtRepository;
 	}
 
-	public List<QuickThought> allMyThoughts() {
+	public Collection<QuickThought> allMyThoughts() {
 		return thoughtRepository().allMyThoughts();
+	}
+
+	public Collection<QuickThought> allThoughtTaggedWith(String tagName) {
+		Tag tag = new Tag(tagName); 
+		return thoughtRepository.allThoughtsTaggedWith(tag);
 	}
 }

@@ -4,6 +4,7 @@ import static org.easymock.classextension.EasyMock.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -43,11 +44,29 @@ public class MindTest {
 		replay(thoughtRepositoryMock);
 		
 		Mind mind = new Mind(thoughtRepositoryMock);
-		List<QuickThought> allThoughtsKnownToMyMind = mind.allMyThoughts();
+		Collection<QuickThought> allThoughtsKnownToMyMind = mind.allMyThoughts();
 		
-		assertEquals(firstThought, allThoughtsKnownToMyMind.get(0));
-		assertEquals(secondThought, allThoughtsKnownToMyMind.get(1));
+		assertTrue(allThoughtsKnownToMyMind.contains(firstThought));
+		assertTrue(allThoughtsKnownToMyMind.contains(secondThought));
 		
 		verify(thoughtRepositoryMock);
 	}
+	
+	@Test
+	public void searching_by_tag_should_return_all_thoughts() throws Exception {
+		
+		QuickThought gaeThought = new QuickThought("Google app engine is the coolest thing I have done all my life", "gae,java");
+		QuickThought pythonOnGaeThought = new QuickThought("Google app engine supports both python and java", "gae,python, java");
+		
+		ThoughtRepository thoughtRepository = createMock(ThoughtRepository.class);
+		
+		Mind myMind = new Mind(thoughtRepository);
+		
+		Collection<QuickThought> allMyThoughts = myMind.allThoughtTaggedWith("gae");
+		
+		assertTrue(allMyThoughts.contains(gaeThought));
+		assertTrue(allMyThoughts.contains(pythonOnGaeThought));
+		
+	}
+	
 }

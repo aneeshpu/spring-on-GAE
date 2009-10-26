@@ -1,6 +1,6 @@
 package com.aneeshpu.gae.web.mvc;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,10 +29,20 @@ public class ThoughtController {
 	@RequestMapping(value = { "/allMyThoughts" }, method = RequestMethod.GET)
 	public ModelAndView allMyThoughts() {
 
-		List<QuickThought> allMyThoughts = mind.allMyThoughts();
+		Collection<QuickThought> allMyThoughts = mind.allMyThoughts();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("allMyThoughts");
 		modelAndView.addObject("allMyThoughts", allMyThoughts);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = { "/allMyThoughts/taggedWith/{tag}" }, method = RequestMethod.GET)
+	public ModelAndView allThoughtsTaggedWith(@PathVariable("tag") String tag){
+		Collection<QuickThought> allMyThoughts = mind.allThoughtTaggedWith(tag);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("allMyThoughts");
+		modelAndView.addObject("allMyThoughts", allMyThoughts);
+		return modelAndView;
+
 	}
 }
