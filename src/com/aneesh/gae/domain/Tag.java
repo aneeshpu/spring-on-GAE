@@ -53,13 +53,9 @@ public class Tag {
 		return true;
 	}
 
-	public String fooBar() {
-		return tag;
-	}
-
 	@Override
 	public String toString() {
-		return "Tag [tag=" + tag + "]";
+		return tag;
 	}
 
 	public List<QuickThought> thought() {

@@ -4,6 +4,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.classextension.EasyMock.createMock;
 import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.verify;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -73,5 +74,11 @@ public class ThoughtRepositoryTest {
 		verify(persistenceManagerFactoryMock);
 		verify(persistenceManagerMock);
 		verify(queryMock);
+	}
+	
+	@Test
+	public void should_fetch_all_tagged_thoughts() throws Exception {
+		
+		Query queryMock = createMock(Query.class);
 	}
 }
