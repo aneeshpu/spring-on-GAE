@@ -3,7 +3,6 @@ package com.aneeshpu.gae.domain.repository;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -33,7 +32,7 @@ public class ThoughtRepository {
 		try {
 			persistenceManager.makePersistent(quickThought);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new QuickThoughtPersistenceException(MessageFormat.format("failed to persist {0}", quickThought), e);
 		} finally {
 			persistenceManager.close();
 		}
@@ -57,7 +56,7 @@ public class ThoughtRepository {
 		for (Tag tag2 : retrievedTag) {
 			System.out.println(MessageFormat.format("Found thought {0} tagged with {1}", tag2.thought(), tag2));
 			System.out.println("found tag " + tag2);
-			
+
 			thoughts.addAll(tag2.thought());
 		}
 
@@ -68,13 +67,10 @@ public class ThoughtRepository {
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
 		Query query = persistenceManager.newQuery("SELECT FROM com.aneesh.gae.domain.Tag WHERE tag == \"" + tag + "\"");
 		Collection<Tag> tags = (Collection<Tag>) query.execute();
-		if(tags.size() == 0)
+		if (tags == null || tags.isEmpty())
 			return null;
 
-		ArrayList<Tag> arrayList = new ArrayList<Tag>();
-		arrayList.addAll(tags);
-
-		return arrayList.get(0);
+		return tags.toArray(new Tag[tags.size()])[0];
 	}
 
 	public Tag persist(Tag tag) {
@@ -83,11 +79,10 @@ public class ThoughtRepository {
 			Tag persistentTag = persistenceManager.makePersistent(tag);
 			return persistentTag;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}finally{
+			throw new QuickThoughtPersistenceException(MessageFormat.format("Failed to persist tag {0}", tag), e);
+		} finally {
 			persistenceManager.close();
 		}
-		
+
 	}
 }

@@ -17,6 +17,14 @@ public class ThoughtController {
 
 	@Autowired
 	private Mind mind;
+	
+	public ThoughtController(){
+	}
+	
+	public ThoughtController(Mind mind){
+		this();
+		this.mind = mind;
+	}
 
 	@RequestMapping(value = { "/think/{thought}/tag/{tags}" }, method = RequestMethod.GET)
 	public ModelAndView think(@PathVariable("thought") String thought, @PathVariable("tags") String tags) {
