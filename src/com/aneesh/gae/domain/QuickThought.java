@@ -27,6 +27,8 @@ public class QuickThought {
 	@Persistent
 	private List<Tag> tagObjects;
 	
+	
+	
 	@SuppressWarnings("unused")
 	private QuickThought(){
 	}
@@ -34,6 +36,7 @@ public class QuickThought {
 	public QuickThought(String quickThought, String... tags) {
 		this.quickThought = quickThought;
 		this.tags = tags;
+		
 		when = new Date();
 	}
 	
@@ -55,6 +58,15 @@ public class QuickThought {
 	public boolean isTaggedWith(String tag) {
 		for (String myTag : tags) {
 			if(myTag.equals(tag)) 
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isTaggedWith(Tag tag){
+		for(Tag tempTag:tagObjects){
+			if(tempTag.equals(tag))
 				return true;
 		}
 		

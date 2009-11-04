@@ -1,5 +1,7 @@
 package com.aneesh.gae.domain;
 
+import java.util.List;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -18,7 +20,7 @@ public class Tag {
 	private String tag;
 	
 	@Persistent(mappedBy="tagObjects")
-	private QuickThought quickThought;
+	private List<QuickThought> quickThought;
 	
 	private Tag(){
 	}
@@ -61,7 +63,7 @@ public class Tag {
 		return "Tag [tag=" + tag + "]";
 	}
 
-	public QuickThought thought() {
+	public List<QuickThought> thought() {
 		return quickThought;
 	}
 }

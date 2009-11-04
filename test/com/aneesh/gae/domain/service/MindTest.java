@@ -1,15 +1,18 @@
 package com.aneesh.gae.domain.service;
 
-import static org.easymock.classextension.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.classextension.EasyMock.createMock;
+import static org.easymock.classextension.EasyMock.replay;
+import static org.easymock.classextension.EasyMock.verify;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.Test;
 
 import com.aneesh.gae.domain.QuickThought;
+import com.aneesh.gae.domain.Tag;
 import com.aneeshpu.gae.domain.repository.ThoughtRepository;
 import com.aneeshpu.gae.domain.service.Mind;
 
@@ -20,13 +23,17 @@ public class MindTest {
 		
 		ThoughtRepository thoughtRepositoryMock = createMock(ThoughtRepository.class);
 		String aCapableMind = "a capable mind";
+		
 		thoughtRepositoryMock.persist(new QuickThought(aCapableMind, "mind"));
+		Tag mindTag = new Tag("mind");
+		expect(thoughtRepositoryMock.find(mindTag)).andReturn(mindTag);
+		
 		replay(thoughtRepositoryMock);
 		
 		Mind mind = new Mind(thoughtRepositoryMock);
 		QuickThought thought = mind.think(aCapableMind, "mind");
 		
-		assertTrue(thought.isTaggedWith("mind"));
+		assertTrue(thought.isTaggedWith(mindTag));
 		verify(thoughtRepositoryMock);
 	}
 	
@@ -59,14 +66,21 @@ public class MindTest {
 		QuickThought pythonOnGaeThought = new QuickThought("Google app engine supports both python and java", "gae,python, java");
 		
 		ThoughtRepository thoughtRepository = createMock(ThoughtRepository.class);
+		String tag = "gae";
+		
+		ArrayList<QuickThought> thoughts = new ArrayList<QuickThought>();
+		
+		thoughts.add(gaeThought);
+		thoughts.add(pythonOnGaeThought);
+		
+		expect(thoughtRepository.allThoughtsTaggedWith(new Tag(tag))).andReturn(thoughts);
+		replay(thoughtRepository);
 		
 		Mind myMind = new Mind(thoughtRepository);
 		
-		Collection<QuickThought> allMyThoughts = myMind.allThoughtTaggedWith("gae");
+		Collection<QuickThought> allMyThoughts = myMind.allThoughtTaggedWith(tag);
 		
 		assertTrue(allMyThoughts.contains(gaeThought));
 		assertTrue(allMyThoughts.contains(pythonOnGaeThought));
-		
 	}
-	
 }

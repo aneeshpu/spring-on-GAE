@@ -50,15 +50,13 @@ public class ThoughtRepository {
 		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
 		String tagName = tag.fooBar();
 		Query query = persistenceManager.newQuery("javax.jdo.query.JDOQL", "SELECT FROM com.aneesh.gae.domain.Tag WHERE tag == \"" + tagName + "\"");
-		// Query query =
-		// persistenceManager.newQuery("javax.jdo.query.JDOQL","SELECT FROM com.aneesh.gae.domain.QuickThought WHERE tags.contains(tag) && tag.tag == \""+tagName+"\"");
 
 		Collection<Tag> retrievedTag = (Collection<Tag>) query.execute();
 		ArrayList<QuickThought> thoughts = new ArrayList<QuickThought>();
 		System.out.println("found " + thoughts.size() + " tags");
 		for (Tag tag2 : retrievedTag) {
 			System.out.println("found tag " + tag2);
-			thoughts.add(tag2.thought());
+			thoughts.addAll(tag2.thought());
 		}
 
 		return thoughts;
