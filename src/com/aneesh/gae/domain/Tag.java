@@ -1,5 +1,6 @@
 package com.aneesh.gae.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -18,7 +19,7 @@ public class Tag {
 	private String tag;
 	
 	@Persistent(mappedBy="tagObjects")
-	private List<QuickThought> quickThoughts;
+	private List<QuickThought> quickThoughts = new ArrayList<QuickThought>();
 	
 	private Tag(){
 	}

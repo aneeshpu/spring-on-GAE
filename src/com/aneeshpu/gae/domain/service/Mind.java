@@ -25,7 +25,6 @@ public class Mind {
 		tag = existingTag == null ? thoughtRepository().persist(tag) : existingTag;
 		final QuickThought quickThought = new QuickThought(thought,tag);
 		tag.add(quickThought);
-//		thoughtRepository().persist(quickThought);
 		return quickThought;
 	}
 

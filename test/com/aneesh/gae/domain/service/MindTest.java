@@ -19,12 +19,11 @@ import com.aneeshpu.gae.domain.service.Mind;
 public class MindTest {
 
 	@Test
-	public void should_be_capable_of_thinking_new_thoughts() throws Exception {
+	public void should_be_capable_of_thinking_new_thoughts_tagged_with_existing_tags() throws Exception {
 		
 		ThoughtRepository thoughtRepositoryMock = createMock(ThoughtRepository.class);
 		String aCapableMind = "a capable mind";
 		
-		thoughtRepositoryMock.persist(new QuickThought(aCapableMind, "mind"));
 		Tag mindTag = new Tag("mind");
 		expect(thoughtRepositoryMock.find(mindTag)).andReturn(mindTag);
 		
