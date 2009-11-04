@@ -1,4 +1,10 @@
-<!-- Indices written at Mon, 26 Oct 2009 19:49:04 UTC -->
+<!-- Indices written at Wed, 4 Nov 2009 07:37:00 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="QuickThought" ancestor="true" source="auto">
+        <property name="quickThoughts_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

@@ -1,5 +1,6 @@
 package com.aneeshpu.gae.domain.repository;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,9 +54,11 @@ public class ThoughtRepository {
 
 		Collection<Tag> retrievedTag = (Collection<Tag>) query.execute();
 		ArrayList<QuickThought> thoughts = new ArrayList<QuickThought>();
-		System.out.println("found " + thoughts.size() + " tags");
+		System.out.println("found " + retrievedTag.size() + " tags");
 		for (Tag tag2 : retrievedTag) {
+			System.out.println(MessageFormat.format("Found thought {0} tagged with {1}", tag2.thought(), tag2));
 			System.out.println("found tag " + tag2);
+			
 			thoughts.addAll(tag2.thought());
 		}
 
@@ -73,5 +76,19 @@ public class ThoughtRepository {
 		arrayList.addAll(tags);
 
 		return arrayList.get(0);
+	}
+
+	public Tag persist(Tag tag) {
+		PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
+		try {
+			Tag persistentTag = persistenceManager.makePersistent(tag);
+			return persistentTag;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			persistenceManager.close();
+		}
+		
 	}
 }

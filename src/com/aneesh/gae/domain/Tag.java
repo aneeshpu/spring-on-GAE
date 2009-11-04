@@ -8,19 +8,17 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.google.appengine.api.datastore.Key;
-
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class Tag {
 	
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	private Key id;
+	private Long id;
 
 	private String tag;
 	
 	@Persistent(mappedBy="tagObjects")
-	private List<QuickThought> quickThought;
+	private List<QuickThought> quickThoughts;
 	
 	private Tag(){
 	}
@@ -64,6 +62,10 @@ public class Tag {
 	}
 
 	public List<QuickThought> thought() {
-		return quickThought;
+		return quickThoughts;
+	}
+
+	public void add(QuickThought quickThought) {
+		quickThoughts.add(quickThought);
 	}
 }

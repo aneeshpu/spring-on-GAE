@@ -22,9 +22,10 @@ public class Mind {
 	public QuickThought think(final String thought, String tags) {
 		Tag tag = new Tag(tags);
 		Tag existingTag = thoughtRepository.find(tag);
-		tag = existingTag == null ? tag : existingTag;
+		tag = existingTag == null ? thoughtRepository().persist(tag) : existingTag;
 		final QuickThought quickThought = new QuickThought(thought,tag);
-		thoughtRepository().persist(quickThought);
+		tag.add(quickThought);
+//		thoughtRepository().persist(quickThought);
 		return quickThought;
 	}
 

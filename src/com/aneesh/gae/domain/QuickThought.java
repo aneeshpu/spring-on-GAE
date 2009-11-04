@@ -1,8 +1,6 @@
 package com.aneesh.gae.domain;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -10,13 +8,15 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import com.google.appengine.api.datastore.Key;
+
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class QuickThought {
 
 	@SuppressWarnings("unused")
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	private Long id;
+	private Key id;
 	
 	private String quickThought;
 
@@ -25,9 +25,7 @@ public class QuickThought {
 	private String[] tags;
 
 	@Persistent
-	private List<Tag> tagObjects;
-	
-	
+	private Tag tagObjects;
 	
 	@SuppressWarnings("unused")
 	private QuickThought(){
@@ -42,7 +40,10 @@ public class QuickThought {
 	
 	public QuickThought(String quickThought, Tag... tags){
 		this.quickThought = quickThought;
-		this.tagObjects = Arrays.asList(tags);
+		
+		//TODO: As of now only the first tag gets assigned. This is because gae does not support many-to-many unless I use Set<key> on either side and
+		//I do not want to do that.
+		this.tagObjects = tags[0];		
 		when = new Date();
 	}
 
@@ -65,18 +66,9 @@ public class QuickThought {
 	}
 	
 	public boolean isTaggedWith(Tag tag){
-		for(Tag tempTag:tagObjects){
-			if(tempTag.equals(tag))
-				return true;
-		}
-		
-		return false;
+		return tagObjects.equals(tag);
 	}
 	
-	public List<Tag> tags(){
-		return tagObjects;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
