@@ -81,7 +81,7 @@ public class ThoughtRepository {
 		} catch (Exception e) {
 			throw new QuickThoughtPersistenceException(MessageFormat.format("Failed to persist tag {0}", tag), e);
 		} finally {
-			persistenceManager.close();
+//			persistenceManager.close();
 		}
 
 	}

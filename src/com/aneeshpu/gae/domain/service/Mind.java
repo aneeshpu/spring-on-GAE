@@ -19,7 +19,7 @@ public class Mind {
 		this.thoughtRepository = thoughtRepository;
 	}
 
-	public QuickThought think(final String thought, String tags) {
+	public QuickThought think(final String thought, final String tags) {
 		Tag tag = new Tag(tags);
 		Tag existingTag = thoughtRepository.find(tag);
 		tag = existingTag == null ? thoughtRepository().persist(tag) : existingTag;
