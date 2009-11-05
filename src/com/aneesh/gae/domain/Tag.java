@@ -25,6 +25,7 @@ public class Tag {
 	}
 
 	public Tag(String tag) {
+		this();
 		this.tag = tag;
 	}
 

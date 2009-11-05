@@ -6,6 +6,7 @@ import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.verify;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -15,6 +16,7 @@ import java.util.Collection;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 import org.junit.After;
 import org.junit.Before;
@@ -124,7 +126,6 @@ public class ThoughtRepositoryTest {
 	public void should_persist_a_tag() throws Exception {
 		Tag reshmi = new Tag("Reshmi is sitting next to me");
 		expect(persistenceManagerMock.makePersistent(reshmi)).andReturn(reshmi);
-		persistenceManagerMock.close();
 		replay(persistenceManagerMock);
 		
 		ThoughtRepository thoughtRepository = new ThoughtRepository(persistenceManagerFactoryMock);
@@ -191,6 +192,57 @@ public class ThoughtRepositoryTest {
 		verify(queryMock);
 		verify(persistenceManagerMock);
 
+	}
+	
+	@Test
+	public void should_start_a_new_transaction() throws Exception {
+		Transaction transaction = createMock(Transaction.class);
+		expect(persistenceManagerMock.currentTransaction()).andReturn(transaction);
+		
+		replay(transaction);
+		replay(persistenceManagerMock);
+		
+		ThoughtRepository thoughtRepository = new ThoughtRepository(persistenceManagerFactoryMock);
+		thoughtRepository.currentTransaction();
+		
+		verify(transaction);
+		verify(persistenceManagerMock);
+	}
+	
+	@Test
+	public void should_commit_current_transaction() throws Exception {
+		Transaction transaction = createMock(Transaction.class);
+		transaction.commit();
+		
+		expect(persistenceManagerMock.currentTransaction()).andReturn(transaction);
+		
+		replay(transaction);
+		replay(persistenceManagerMock);
+		
+		ThoughtRepository thoughtRepository = new ThoughtRepository(persistenceManagerFactoryMock);
+		thoughtRepository.commitTransaction();
+		
+		verify(transaction);
+		verify(persistenceManagerMock);
+		
+	}
+	
+	@Test
+	public void should_rollback_transaction() throws Exception {
+		Transaction transaction = createMock(Transaction.class);
+		transaction.rollback();
+		
+		expect(persistenceManagerMock.currentTransaction()).andReturn(transaction);
+		
+		replay(transaction);
+		replay(persistenceManagerMock);
+		
+		ThoughtRepository thoughtRepository = new ThoughtRepository(persistenceManagerFactoryMock);
+		thoughtRepository.rollbackTransaction();
+		
+		verify(transaction);
+		verify(persistenceManagerMock);
+		
 	}
 	
 	@After

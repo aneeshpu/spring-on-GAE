@@ -8,6 +8,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,7 +26,7 @@ public class ThoughtRepository {
 		this.persistenceManagerFactory = persistenceManagerFactory;
 
 	}
-
+	
 	public void persist(final QuickThought quickThought) {
 
 		final PersistenceManager persistenceManager = persistenceManagerFactory.getPersistenceManager();
@@ -80,9 +81,18 @@ public class ThoughtRepository {
 			return persistentTag;
 		} catch (Exception e) {
 			throw new QuickThoughtPersistenceException(MessageFormat.format("Failed to persist tag {0}", tag), e);
-		} finally {
-//			persistenceManager.close();
-		}
+		} 
+	}
 
+	public Transaction currentTransaction() {
+		return persistenceManagerFactory.getPersistenceManager().currentTransaction();
+	}
+
+	public void commitTransaction() {
+		persistenceManagerFactory.getPersistenceManager().currentTransaction().commit();
+	}
+
+	public void rollbackTransaction() {
+		persistenceManagerFactory.getPersistenceManager().currentTransaction().rollback();
 	}
 }
