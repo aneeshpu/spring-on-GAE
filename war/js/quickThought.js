@@ -62,7 +62,7 @@ function createThought(event){
 	var newThought = $('thoughtBox').getValue();
 	
 	new Ajax.Request('quickThought/think/'+newThought,{
-		method: 'get',
+		method: 'post',
 		
 		onSuccess: function(transport){
 			console.debug("response received"+transport.responseJSON.created);

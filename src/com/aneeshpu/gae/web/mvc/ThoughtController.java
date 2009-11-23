@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aneesh.gae.domain.QuickThought;
@@ -27,7 +26,7 @@ public class ThoughtController {
 		this.mind = mind;
 	}
 
-	@RequestMapping(value = { "/think/{thought}/tag/{tags}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/think/{thought}/tag/{tags}" }, method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView think(@PathVariable("thought") String thought, @PathVariable("tags") String tags) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("newThought");
@@ -55,7 +54,7 @@ public class ThoughtController {
 
 	}
 
-	@RequestMapping(value = { "/think/{thought}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/think/{thought}" }, method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView think(@PathVariable("thought") String thought) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("newThought");
