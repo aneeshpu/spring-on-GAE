@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NullValue;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -20,21 +21,28 @@ public class QuickThought {
 	
 	private String quickThought;
 
+	public String getQuickThought() {
+		return quickThought;
+	}
+
 	private Date when;
 
 	private String[] tags;
 
-	@Persistent
+	@Persistent(nullValue=NullValue.NONE)
 	private Tag tagObjects;
 	
 	@SuppressWarnings("unused")
 	private QuickThought(){
 	}
 	
+	public QuickThought(String quickThought){
+		this.quickThought = quickThought;
+	}
+	
 	public QuickThought(String quickThought, String... tags) {
 		this.quickThought = quickThought;
 		this.tags = tags;
-		
 		when = new Date();
 	}
 	
@@ -99,5 +107,4 @@ public class QuickThought {
 			return false;
 		return true;
 	}
-	
 }

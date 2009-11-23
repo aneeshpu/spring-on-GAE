@@ -66,4 +66,8 @@ public class Mind {
 			return null;
 		}
 	}
+
+	public QuickThought think(String thought) {
+		return think(thought, "no Tag");
+	}
 }

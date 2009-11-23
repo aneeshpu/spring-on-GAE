@@ -14,7 +14,6 @@ div#mind{
 	font: sans-serif;
 	padding: 5px 10px 15px;
 	border: 1px;
-	
 }
 
 ol{
@@ -23,15 +22,20 @@ ol{
 
 span{
 	border-bottom: 1px solid #EEEEEE;
-	
 }
 
 span.thought{
 	border-right: 1px solid #EEEEEE;
-	
 }
 
 span.time {
 	color: #999999;
 	font-size: 12px;
+}
+
+#thoughtBox{
+	width: 500px;
+	height: auto;
+	border: 1px solid #AAAAAA;
+	text-align: left;
 }

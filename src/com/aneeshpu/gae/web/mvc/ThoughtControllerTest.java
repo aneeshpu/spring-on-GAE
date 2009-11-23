@@ -37,6 +37,24 @@ public class ThoughtControllerTest {
 	}
 	
 	@Test
+	public void should_call_mind_without_tags() throws Exception {
+		String thoughtString = "still on the train";
+		QuickThought quickThought = new QuickThought(thoughtString);
+		
+		Mind mindMock = createMock(Mind.class);
+		expect(mindMock.think(thoughtString)).andReturn(quickThought);
+		replay(mindMock);
+		
+		ThoughtController thoughtController = new ThoughtController(mindMock);
+		ModelAndView modelAndView = thoughtController.think(thoughtString);
+		
+		assertEquals(quickThought, modelAndView.getModel().get("thought"));
+		assertEquals("newThought", modelAndView.getViewName());
+		
+		verify(mindMock);
+	}
+	
+	@Test
 	public void should_set_a_collection_of_thoughts() throws Exception {
 		Mind mindMock = createMock(Mind.class);
 		ArrayList<QuickThought> allMyThoughts = new ArrayList<QuickThought>();

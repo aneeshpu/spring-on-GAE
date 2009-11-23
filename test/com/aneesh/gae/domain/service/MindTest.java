@@ -1,17 +1,22 @@
 package com.aneesh.gae.domain.service;
 
 import static org.easymock.EasyMock.expect;
+
 import static org.easymock.classextension.EasyMock.createMock;
 import static org.easymock.classextension.EasyMock.replay;
 import static org.easymock.classextension.EasyMock.verify;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.jdo.Transaction;
 
+import org.easymock.classextension.EasyMock;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.aneesh.gae.domain.QuickThought;
@@ -43,6 +48,29 @@ public class MindTest {
 		QuickThought thought = mind.think(aCapableMind, "mind");
 		
 		assertTrue(thought.isTaggedWith(mindTag));
+		verify(thoughtRepositoryMock);
+		verify(transactionMock);
+	}
+	
+	@Test
+	public void should_be_capable_of_thinking_untagged_thoughts() throws Exception {
+		ThoughtRepository thoughtRepositoryMock = createMock(ThoughtRepository.class);
+		String aCapableMind = "an untagged mind";
+		
+		Transaction transactionMock = createMock(Transaction.class);
+		transactionMock.begin();
+		transactionMock.commit();
+		
+		expect(thoughtRepositoryMock.currentTransaction()).andReturn(transactionMock);
+		
+		thoughtRepositoryMock.persist(EasyMock.<QuickThought>anyObject());
+		replay(thoughtRepositoryMock);
+		replay(transactionMock);
+		
+		Mind mind = new Mind(thoughtRepositoryMock);
+		QuickThought thought = mind.think(aCapableMind);
+		
+		assertNotNull(thought);
 		verify(thoughtRepositoryMock);
 		verify(transactionMock);
 	}
